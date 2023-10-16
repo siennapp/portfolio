@@ -19,12 +19,12 @@ const TitleUp = keyframes`
         top: 100%; 
     }
     100%{
-        top: -300%;
+        top: -200%;
     }
 `
 const TitleDown = keyframes`
     0%{
-        top: -400%;
+        top: -300%;
     }
     100%{
         top: 0;
@@ -48,20 +48,15 @@ const ScaleSize = keyframes`
 
 `
 const FadeIn = keyframes`
-0%{
-   opacity: 0;
-   //transform: translateY(-5px);
-}
-
-100%{
-    opacity: 1;
-    //transform: translateY(0);
-}
+    0%{
+    opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
 
 `
 const TitleBox = styled.div`
-   
-    
     position: fixed;
     left: 0; top: 0; 
     border-right: solid 1px #000;
