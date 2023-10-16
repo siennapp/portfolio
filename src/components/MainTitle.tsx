@@ -214,10 +214,10 @@ function MainTitle () {
                 
                 <Box>
                     <Left>
-                        <span className="left-title">Frontend Frontend Frontend <h2>Frontend</h2></span>
+                        <span className="left-title">Frontend Frontend <h2>Frontend</h2></span>
                     </Left>
                     <Right> 
-                        <span className="right-title"><h2>Developer</h2> Developer Developer Developer</span>
+                        <span className="right-title"><h2>Developer</h2> Developer Developer</span>
                     </Right>
                 </Box>
             </Banner>
