@@ -3,13 +3,30 @@ import styled, { keyframes } from "styled-components"
 import { AiOutlineCodepenCircle,AiFillGithub,AiFillMail  } from "react-icons/ai";
 import { useEffect, useState } from "react";
 
+const width = window.innerWidth;
+console.log(width)
+
 const ScaleWidth = keyframes`
     0%{
         width: 100%; 
+        height: 100vh; 
         background: transparent;
     }
     100%{
-        width: 20vw;
+        /* width: 20vw; */
+        width: ${width > 991? '20vw':'100vw' };
+        height: ${width > 991? '100vh':'80px' };
+        background: #3dd065;
+
+    }
+`
+const ScaleHeight = keyframes`
+    0%{
+        height: 100vh; 
+        background: transparent;
+    }
+    100%{
+        height: 80px;
         background: #3dd065;
 
     }
@@ -56,21 +73,53 @@ const FadeIn = keyframes`
     }
 
 `
-const TitleBox = styled.div`
+const TitleWrap = styled.div`
+    width: 20vw;
+    height: 100vh;
+    margin-left: 1px;
     position: fixed;
-    left: 0; top: 0; 
+    left: 0; top:0; 
     border-right: solid 1px #000;
-    width: 100vw;
-    min-width: 320px;
-    height: 100vh; 
+    z-index: 100;
+    min-height: 100vh !important ;
+    /* max-width: 20vw !important; */
+    
+    &.active{
+        animation: ${ScaleWidth} .4s 3s cubic-bezier(0.46,0.03,0.52,0.96);
+        animation-fill-mode: backwards;
+        
+    }
+    /* background: red; */
+    @media (max-width: 991px) {
+       width: 100vw; 
+       min-width: 100vw !important;
+       max-width: 20vw;
+       height: 80px;
+       border-right: 0;
+       margin-right:1px;
+       border-bottom: solid 1px #000;
+       padding: 12px 1.5vw;
+       overflow: hidden;
+       min-height:80px !important ;
+       /* max-height: 80px !important ; */
+    }
+   
+`
+const TitleBox = styled.div`
+    left: 0; top: 0; 
+    position: absolute;
+    /* min-width: 320px; */
+    width: 99%;
+    height: 100%; 
     z-index: 101;
     display: flex;
     flex-direction: column;
-    padding: 30px 25px 30px 25px;
+    padding: 30px 1.5vw;
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 40px; 
     transform: scale(1);
+   // background: yellow;
     &.active{
         .left-title{
             animation: ${TitleUp} 1.5s .3s cubic-bezier(0.79,0.14,0.15,0.86);
@@ -101,9 +150,21 @@ const TitleBox = styled.div`
 
         animation: ${ScaleWidth} .4s 3s cubic-bezier(0.46,0.03,0.52,0.96);
         animation-fill-mode: forwards;
+
+        @media (max-width: 991px) {
+            width: 100vw; 
+            /* height: 300px; */
+            border-right: 0;
+            /* &.active{
+                animation: ${ScaleHeight} .4s 3s cubic-bezier(0.46,0.03,0.52,0.96);
+                animation-fill-mode: forwards;
+            } */
+        }
+    }
+    @media (max-width: 991px) {
+        padding: 12px 1.5vw;
     }
 `
-
 const Links = styled.div`
     width: 100%; 
     display: flex;
@@ -111,8 +172,14 @@ const Links = styled.div`
     margin-bottom: 10px;
     position: absolute;
     width:100%;
-    top: 9vw;
-
+    top: 13vh;
+    @media (max-width: 991px) {
+        height:100%;
+        top: 16px;
+        right: 12px;
+        align-items: center;
+        justify-content: flex-end;
+    }
 `
 const Link = styled.span`
     margin-right: 12px;
@@ -194,31 +261,33 @@ function MainTitle () {
 
     useEffect(()=>{
         setLoading(true);
-
     },[])
    
     return(
-        <TitleBox className={loading? "active":" "}>
-            <Links> 
-                <Link className="link"><a href="https://github.com/siennapp"><AiFillGithub size={20}/></a></Link>
-                <Link className="link"><a href="https://codepen.io/siennapp"><AiOutlineCodepenCircle size={20}/></a></Link>
-                <Link className="link"><a href="mailto:sieun.park.91@gmail.com?subject=안녕하세요."><AiFillMail size={20}/></a></Link>
-            </Links>
-            <Banner className="banner">
-                <NameBox className="name-box">박시은</NameBox>
-                
-                <Box>
-                    <Left>
-                        <span className="left-title">Frontend Frontend <h2>Frontend</h2></span>
-                    </Left>
-                    <Right> 
-                        <span className="right-title"><h2>Developer</h2> Developer Developer</span>
-                    </Right>
-                </Box>
-            </Banner>
+        <TitleWrap className={loading? "active":" "}>
+            <TitleBox className={loading? "active":" "}>
+                <Links> 
+                    <Link className="link"><a href="https://github.com/siennapp"><AiFillGithub size={20}/></a></Link>
+                    <Link className="link"><a href="https://codepen.io/siennapp"><AiOutlineCodepenCircle size={20}/></a></Link>
+                    <Link className="link"><a href="mailto:sieun.park.91@gmail.com?subject=안녕하세요."><AiFillMail size={20}/></a></Link>
+                </Links> 
+               <Banner className="banner">
+                    <NameBox className="name-box">박시은</NameBox>
+                    
+                    <Box>
+                        <Left>
+                            <span className="left-title">Frontend Frontend <h2>Frontend</h2></span>
+                        </Left>
+                        <Right> 
+                            <span className="right-title"><h2>Developer</h2> Developer Developer</span>
+                        </Right>
+                    </Box>
+                </Banner>
+            </TitleBox>
+            
             {/* <Introduce>웹 퍼블리셔 및 프론트엔드 개발자로서 약 4년의 경력을 가지고 있습니다. </Introduce> */}
-            <Footer>Developed by @Sienna Park</Footer>
-        </TitleBox>
+            {/* <Footer>Developed by @Sienna Park</Footer> */}
+        </TitleWrap>
     )
 }
 export default MainTitle

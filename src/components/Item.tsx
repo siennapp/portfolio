@@ -59,22 +59,21 @@ const ItemWrap = styled.div<{bg: string}>`
         transition: .12s ease-in-out;
         padding: 0 10px;
         font-family: 'TAEBAEKfont', sans-serif ;
-        @media (max-width: 992px) {
+        @media (max-width: 991px) {
             max-width: 14vw;
-            font-size: 1.6vw; 
+            font-size: 1.4vw; 
         }
         @media (max-width: 600px) {
             max-width: 100%;
             width: 100%; 
-            font-size: 3.9vw; 
+            font-size: 18px; 
             justify-content: left;
+            padding-left: 5px;
         }
         @media (max-width: 480px) {
-            font-size: 5vw; 
-            position: relative;
-            top: -3px;
-            text-align: left; 
+            font-size: 4.5vw; 
         }
+      
     }
     &:hover{
         .fadeIn{
@@ -122,14 +121,14 @@ const ItemWrap = styled.div<{bg: string}>`
     }
     @media (max-width: 600px) {
         height: auto;  
-        margin: 0px 20px 40px 0px;
+        margin: 0px 20px 30px 25px;
         flex-direction: column;
     }
-    @media (max-width: 480px) {
+    /* @media (max-width: 480px) {
         height: auto;  
         margin: 0 0 40px 0;
         flex-direction: column;
-    }
+    } */
     &:nth-child(2){
         animation-delay: .2s
     }
@@ -188,30 +187,32 @@ const Num = styled.span`
     margin-right: 30px; 
     position: absolute;
     left: -40px;
-    
+    @media (max-width: 991px) {
+        left: -30px; 
+    }
+    @media (max-width: 600px) {
+        font-size: 16px; 
+        left: -22px; 
+        top: 5px
+    }
 `
 
 const Skills = styled.div`
     margin-top: -2px; 
-    
     left: 100%; 
-    
     top: 0; 
     max-width: 0px;
     margin-right: 10px; 
     overflow: hidden;
     animation: ${ScaleWidth} 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275);
-    @media (max-width: 992px) {
-        padding: 10px; 
-    }
-    @media (max-width: 480px){
-        position: relative;
-        display: block;
-        height: auto; 
+    @media (max-width: 600px) {
+        animation: none;
+        max-width: 100%;
         width: 100%;
-        left: 0; 
-        top: 100%;
+        display: flex;
+        margin: 3px 10px
     }
+    
 
 `
 const Badge = styled.div`

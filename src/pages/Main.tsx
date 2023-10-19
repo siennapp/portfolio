@@ -16,24 +16,49 @@ const MainWrap = styled.div`
     z-index: 100;
     display: flex;
     justify-content: flex-end;
+    
 `
 const SectionWrap = styled.div`
     width: 80vw; 
-    max-width: calc( 100% - 320px );
+    /* max-width: calc( 100% - 320px ); */
+    @media (max-width: 991px) {
+        width: 100vw;
+    }
 `
 const Section = styled.div`
     width: 100%; 
     padding:14vh 4vw; 
     display: flex;
     align-items: stretch;
+    position:relative;
+    @media (max-width: 600px) {
+        flex-direction: column-reverse;
+        padding:12vh 4vw; 
+    }
 `
 const Left = styled.div`
     flex: 1.5; 
     padding-right: 30px;
+    @media (max-width: 600px) {
+        padding: 0;
+        .box{
+            margin-top: 270px;
+        }
+
+    }
 `
 const Right = styled.div`
     flex: 1; 
     padding-left: 30px;
+    @media (max-width: 600px) {
+        padding: 0;
+        .history-list{
+            position: absolute;
+            top: 180px;
+            height: 190px;
+            padding-left: 10px;
+        }
+    }
 `
 const Full = styled.div`
    flex: 1; 
@@ -46,6 +71,9 @@ const BoxTitle = styled.h2`
     font-style: italic ;
     font-size: 2.2vw; 
     letter-spacing: -0.03em;
+    @media (max-width: 991px) {
+        font-size: 24px; 
+    }
 `
 const Box = styled.div`
     width: 100%;
@@ -63,7 +91,6 @@ const Box = styled.div`
 const History = styled.ul`
     padding-top: 80px;
     padding-bottom:20px;
-    height: 100%;
     display: flex;
     flex-direction: column-reverse;
     position: relative;
@@ -75,12 +102,19 @@ const History = styled.ul`
         font-family: TAEBAEKfont, sans-serif !important;
         line-height: 1.4em;
         position:relative;
+        @media (max-width: 991px) {
+            padding-left: 95px;
+        }
         p{
             font-size: 1em;
         }
         span{
             display: block;
             font-size: .75em;
+            @media (max-width: 600px) {
+                display: inline-block;
+                margin-left:10px;
+            }
         }
         &.skills{
           
@@ -124,23 +158,23 @@ const SkillsBox =  styled.div`
     flex-wrap: wrap;
     padding: 50px 60px;
     margin-top: 20px;
-    span{
-        font-family: TAEBAEKfont, sans-serif !important;
-        font-size: 20px;
-        /* margin: 5px;
-        padding: 10px 20px; 
-        border: solid 1px rgba(0,0,0,0.9);
-        background: #fff; 
-        border-radius: 50%; */
+   
+    @media (max-width: 991px) {
+        padding: 50px 15px 0 15px;
+        
     }
 `
 const SkillItem = styled.span<{color: string}>`
     background: ${ props=>props.color};
     padding: 7px 12px; 
-    font-family: TAEBAEKfont, sans-serif !important;
-    font-size: 18px;
+    font-family: TAEBAEKfont, sans-serif;
+    font-size: 20px;
     border: 1px solid #000;
     margin: 5px;
+    @media (max-width: 600px) {
+        font-size: 16px;
+
+    }
 `
 const List = styled.div`
     width:100%;
@@ -227,14 +261,14 @@ function Main (){
                             data-aos-easing="ease-in-out"
                         >
                             <BoxTitle>Expierences</BoxTitle>
-                            <Box>데이터 기업에서 근무하면서 데이터 조회, 시각화, 관리 admin 사이트 개발에 참여하였습니다. 주로 공공기관과 협업하며 <b>웹 접근성</b>과 <b>웹 표준</b>을 중점으로 하고, <b>반응형 레이아웃</b> 최적화를 고려한 마크업을 수행하였습니다. 
+                            <Box className="box">데이터 기업에서 근무하면서 데이터 조회, 시각화, 관리 admin 사이트 개발에 참여하였습니다. 주로 공공기관과 협업하며 <b>웹 접근성</b>과 <b>웹 표준</b>을 중점으로 하고, <b>반응형 레이아웃</b> 최적화를 고려한 마크업을 수행하였습니다. 
                                 <br/>
                                 <br/>
                                 개인 프리랜서로서 프로젝트를 참여하면서 업무에 있어 책임감을 더 키우고 팀 구성원과 커뮤니케이션 능력을 기를 수 있었습니다. 또한 <b>웹, 하이브리드 앱</b> 개발을 위한 다양한 javascript 프레임워크와 개발 환경은 물론 zeplin, Figma 와 같은 디자인 툴과 익숙해질 수 있었습니다. 
                             </Box>
                         </Left>
                         <Right>
-                            <History>
+                            <History className="history-list">
                                 <li className="point"
                                     data-aos="fade"
                                     data-aos-delay="700"
@@ -246,7 +280,7 @@ function Main (){
                                     data-aos="fade-left"
                                     data-aos-delay="1200"
                                     data-aos-duration="500"
-                                >주식회사 리스트<br/><span>주임 / 퍼블리셔</span></p></li> 
+                                >주식회사 리스트<span>주임 / 퍼블리셔</span></p></li> 
                                 <li className="point"
                                     data-aos="fade"
                                     data-aos-delay="900"
@@ -260,7 +294,6 @@ function Main (){
                                     data-aos-delay="1200"
                                     data-aos-duration="500"
                                 >프리랜서<br/>
-                                {/* <span>React, React-native, Angular 경험</span> */}
                                 </p> </li> 
                                 <li className="point"
                                     data-aos="fade"
@@ -269,7 +302,7 @@ function Main (){
                             </History>
                         </Right>
                     </Section>
-                    <Section>
+                    <Section className="reverse">
                         <Left>
                             <SkillsBox>
                                 <SkillItem color='#edd72e'
