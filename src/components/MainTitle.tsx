@@ -59,8 +59,12 @@ const ScaleSize = keyframes`
      0%{
         transform: scale(1);
     }
+    99%{
+        opacity: 1;
+    }
     100%{
         transform: scale(.16);
+        opacity: 0;
     }
 
 `
@@ -68,11 +72,14 @@ const FadeIn = keyframes`
     0%{
     opacity: 0;
     }
+    10%{
+    opacity: 0;
+    }
     100%{
         opacity: 1;
     }
-
 `
+
 const TitleWrap = styled.div`
     width: 20vw;
     height: 100vh;
@@ -83,7 +90,7 @@ const TitleWrap = styled.div`
     z-index: 100;
     min-height: 100vh !important ;
     /* max-width: 20vw !important; */
-    
+    background: #3dd065;
     &.active{
         animation: ${ScaleWidth} .4s 3s cubic-bezier(0.46,0.03,0.52,0.96);
         animation-fill-mode: backwards;
@@ -118,6 +125,7 @@ const TitleBox = styled.div`
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 40px; 
+    margin-left: -1px;
     transform: scale(1);
    // background: yellow;
     &.active{
@@ -138,7 +146,7 @@ const TitleBox = styled.div`
             animation-fill-mode: forwards;
         }
         .link{
-            animation: ${FadeIn} .38s 3.5s cubic-bezier(0.46,0.03,0.52,0.96);
+            animation: ${FadeIn} .38s 3.3s cubic-bezier(0.46,0.03,0.52,0.96);
             animation-fill-mode: forwards;
             /* &:nth-of-type(2){
                 animation-delay: 3.6s;
@@ -147,9 +155,14 @@ const TitleBox = styled.div`
                 animation-delay: 3.7s;
             } */
         }
-
-        animation: ${ScaleWidth} .4s 3s cubic-bezier(0.46,0.03,0.52,0.96);
-        animation-fill-mode: forwards;
+        .side-banner{
+            animation: ${FadeIn} .19s 3.3s cubic-bezier(0.46,0.03,0.52,0.96);
+            animation-fill-mode: forwards;
+            color: #000000;
+            
+        }
+        animation: ${ScaleWidth} .4s 3.2s cubic-bezier(0.46,0.03,0.52,0.96);
+        animation-fill-mode: inherit;
 
         @media (max-width: 991px) {
             width: 100vw; 
@@ -172,7 +185,7 @@ const Links = styled.div`
     margin-bottom: 10px;
     position: absolute;
     width:100%;
-    top: 13vh;
+    top: 8.95vw;
     @media (max-width: 991px) {
         height:100%;
         top: 16px;
@@ -211,6 +224,32 @@ const Banner = styled.div`
     left: 0; top: 0;  */
     transform-origin: 0px 0px;
    
+`
+const SideBanner = styled.div`
+    position:absolute; 
+    margin-top: 20px; 
+    font-family: 'Archivo', sans-serif;
+    opacity: 0;
+    color: transparent;
+    @media (max-width: 800px) {
+        margin-top:1.5vw;
+    }
+`
+const SideNameBox = styled.div`
+    font-weight: bold;
+    font-size: 2.53vw;
+    font-weight: 900;
+    @media (max-width: 800px) {
+        font-size: 19px;
+    }
+`
+const SideBox = styled.div`
+    font-weight: bold;
+    font-size: 1.75vw; 
+    font-weight: 900;
+    @media (max-width: 800px) {
+        font-size: 14px;
+    }
 `
 const Box = styled.div`
     width: 100vw; 
@@ -255,6 +294,7 @@ const NameBox = styled.div`
     overflow: hidden;
     transition: all .3s;
     transform: translateY(60%);
+    
 `
 function MainTitle () {
     const [loading,setLoading] = useState(false);
@@ -273,16 +313,21 @@ function MainTitle () {
                 </Links> 
                <Banner className="banner">
                     <NameBox className="name-box">박시은</NameBox>
-                    
                     <Box>
                         <Left>
-                            <span className="left-title">Frontend Frontend <h2>Frontend</h2></span>
+                            <span className="left-title">Frontend Frontend Frontend</span>
                         </Left>
                         <Right> 
-                            <span className="right-title"><h2>Developer</h2> Developer Developer</span>
+                            <span className="right-title">Developer Developer Developer</span>
                         </Right>
                     </Box>
                 </Banner>
+                <SideBanner className="side-banner">
+                    <SideNameBox>박시은</SideNameBox>
+                    <SideBox>
+                        <span><h1>Frontend Developer</h1></span>
+                    </SideBox>
+                </SideBanner>
             </TitleBox>
             
             {/* <Introduce>웹 퍼블리셔 및 프론트엔드 개발자로서 약 4년의 경력을 가지고 있습니다. </Introduce> */}
