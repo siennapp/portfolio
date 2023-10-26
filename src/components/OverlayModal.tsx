@@ -1,54 +1,51 @@
-import { useEffect, useState } from "react"
 import styled, { keyframes } from "styled-components"
 import { NotionRenderer } from "react-notion";
 import 'react-notion/src/styles.css';
 import {AiOutlineClose} from 'react-icons/ai';
+import  { hideModal } from "../redux";
+import {  useDispatch } from "react-redux";
+import { useState } from "react";
+import { modalProps } from "../common/types";
 
-interface IModal {
-    modalToggle: () => void;
-    response: any;
-    contentImg: string | null;
-    
-}
 
-function OverlayModal({response,modalToggle,contentImg}:IModal){
+
+
+function OverlayModal({modalVisible,content, imgSrc}:modalProps){
+    const [imgLoading, setLoading] = useState(false);
+    const dispatch = useDispatch()
     const onClick = (event:React.MouseEvent<HTMLElement>):void => {
-        event.stopPropagation();
-        setLoading(true);
+        dispatch(hideModal())
     }
-    const [isLoading, setLoading] = useState(false);
-   // console.log(contentImg)
-
-    useEffect(()=>{
-        setTimeout(function(){
-            setLoading(true)
-        },1000)
-    },[])
-
+    const onLoad = () =>{
+        setLoading(true)
+    }
 return (
- 
-        <Overlay onClick={modalToggle}>
-            {!isLoading&& <Spinner/>}
-               
-                <Modal onClick={onClick}>
-                    <CloseModal onClick={modalToggle}><AiOutlineClose size="30" color="#000000"/></CloseModal>
+        <>
+          {modalVisible &&
+            <Overlay>
+                <Modal>
+                    <CloseModal onClick={onClick}><AiOutlineClose size="30" color="#000000"/></CloseModal>
                     <ModalContent>
-                    {contentImg && <ImgBox bg={contentImg} /> }
                         
-                        {/* <img width={940} src={`https://siennapp.github.io/static/${contentImg}`} alt={contentImg} />
-                        </ImgBox> */}
-                        <ModalScroll>
-                            <div className="content">
-                                <ModalBody>
-                                    <NotionRenderer blockMap={response} />
-                                </ModalBody>
-                            </div>
-                        </ModalScroll>
+                        <ImgBox bg={imgSrc}> 
+                            <img onLoad={onLoad} width={940} src={`https://siennapp.github.io/static/${imgSrc}`} alt={imgSrc} />
+                        </ImgBox>
+                        {imgLoading? (
+                            <ModalScroll>
+                                <div className="content">
+                                    <ModalBody>
+                                        {content&&<NotionRenderer blockMap={content} />}
+                                    </ModalBody>
+                                </div>
+                            </ModalScroll>
+                        ): <Spinner/>}
                     </ModalContent>
                 </Modal>  
-          
-            
-        </Overlay>
+            </Overlay>
+          }
+         </>
+                
+        
 
 )
 }
@@ -220,21 +217,17 @@ const ImgScaleSmall = keyframes`
 
 `
 // const ImgBox = styled.img`
-//     width: 100%; 
-//     height: 100%;
-//     animation: ${ImgScale} .3s 2s cubic-bezier(0.550, 0.085, 0.680, 0.530) forwards;
-// `
 
 
 const ImgBox = styled.div<{bg: string}>`
     width: 100%;
     min-width: 100%; 
-    background-image: url( https://siennapp.github.io/static/${(props)=> props.bg }); 
+    //background-image: url( https://siennapp.github.io/static/${(props)=> props.bg }); 
     background-size: 940px auto;
     background-position: left top; 
     left: 0; top: 0; 
     position: relative; 
-    animation: ${ImgScale} .3s 1.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) forwards;
+   //animation: ${ImgScale} .3s 1.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) forwards;
     &::after{
         content:'';
         width: 100%; 

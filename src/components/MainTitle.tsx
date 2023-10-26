@@ -1,10 +1,7 @@
 import styled, { keyframes } from "styled-components"
-//import laptop from './img/laptop.png'
 import { AiOutlineCodepenCircle,AiFillGithub,AiFillMail  } from "react-icons/ai";
 import { useEffect, useState } from "react";
 
-const width = window.innerWidth;
-console.log(width)
 
 const ScaleWidth = keyframes`
     0%{
@@ -14,8 +11,8 @@ const ScaleWidth = keyframes`
     }
     100%{
         /* width: 20vw; */
-        width: ${width > 991? '20vw':'100vw' };
-        height: ${width > 991? '100vh':'80px' };
+        width: ${window.innerWidth > 991? '20vw':'100vw' };
+        height: ${window.innerWidth > 991? '100vh':'80px' };
         background: #3dd065;
 
     }
@@ -206,12 +203,7 @@ const Link = styled.span`
         }
    }
 `
-const Footer = styled.div`
-    width: 100%; 
-    text-align: center;
-    font-size: 14px; 
-    
-`
+
 
 const Banner = styled.div`
     font-family: 'Archivo', sans-serif;

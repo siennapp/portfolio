@@ -1,13 +1,56 @@
 import styled, { keyframes } from "styled-components";
+import { useDispatch } from "react-redux";
+import { showModal } from "../redux";
+import { ItemProps } from "../common/types";
 
-interface ItemProps {
-    id: string;
-    name: string;
-    thumbImg: string;
-    contentImg: string;
-    skills: string[]
-    modalOpen: () => void;
+
+function Item ( {
+        id,
+        thumbImg,
+        name,
+        skills,
+        notionId,
+        contentImg,
+    }:ItemProps ) {
+        const dispatch = useDispatch();
+        const fetchModalContent = () => {
+            
+            fetch(`https://notion-api.splitbee.io/v1/page/${notionId}`)
+            .then(res => res.json())
+            .then((resJson) => {
+                dispatch(showModal({ 
+                    modalVisible:true,
+                    content: resJson,
+                    imgSrc: contentImg
+                }));
+            })
+        } 
+    return(
+        <ItemWrap
+            bg={thumbImg}
+            onClick={fetchModalContent}
+            data-aos="fade"
+            data-aos-offset="100"
+            data-aos-duration="300"
+            data-aos-easing="ease-in-out"
+        >
+            <BoxStart className="box-start"  bg={thumbImg}/>
+            <Num>{id}</Num>
+            <h2>{name}</h2>
+            <Skills className="box-skills">
+                {skills.map((skill,index) => {
+                    return index%2 === 0?  ( <span key={skill+index}><Badge key={index}>{skill}</Badge></span> )
+                                    : (<span key={skill+index}><Badge key={index}>{skill}</Badge><br /></span>)
+                })}
+            </Skills>
+            <BoxEnd className="box-end"  bg={thumbImg}/>
+        </ItemWrap>
+      
+    )
 }
+export default Item;
+
+
 
 const FadeUp = keyframes`
     0%{
@@ -230,39 +273,3 @@ const Badge = styled.div`
         display: inline-block;
     }
 `
-
-function Item ( {
-        id,
-        thumbImg,
-        name,
-        skills,
-        modalOpen
-    }:ItemProps ) {
-    
-    return(
-        <ItemWrap
-            key={id}
-            bg={thumbImg}
-            onClick={modalOpen}
-            data-aos="fade"
-            data-aos-offset="100"
-            data-aos-duration="300"
-            data-aos-easing="ease-in-out"
-        >
-            <BoxStart className="box-start"  bg={thumbImg}/>
-           
-            
-            <Num>{id}</Num>
-            <h2>{name}</h2>
-            <Skills className="box-skills">
-                {skills.map((skill,index) => {
-
-                    
-                return index%2 === 0?<span><Badge key={index}>{skill}</Badge></span> : (<span><Badge key={index}>{skill}</Badge><br /></span>)
-                })}
-            </Skills>
-            <BoxEnd className="box-end"  bg={thumbImg}/>
-        </ItemWrap>
-    )
-}
-export default Item;
