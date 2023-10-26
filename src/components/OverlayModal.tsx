@@ -227,7 +227,7 @@ const ImgBox = styled.div<{bg: string}>`
     background-position: left top; 
     left: 0; top: 0; 
     position: relative; 
-   //animation: ${ImgScale} .3s 1.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) forwards;
+   animation: ${ImgScale} .3s 1.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) forwards;
     &::after{
         content:'';
         width: 100%; 
